@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de Energia</title>
+</head>
+<body>
+    <h2>Gasto de Energia Mensal</h2>
+
+    <p>Informe o consumo em kWh por mês:</p>
+
+    Geladeira: <input type="number" id="geladeira" min="0"><br><br>
+    Ar-condicionado: <input type="number" id="ar" min="0"><br><br>
+    TV: <input type="number" id="tv" min="0"><br><br>
+
+    Valor do kWh (R$): <input type="number" id="kwh" value="0.9" step="0.01" min="0"><br><br>
+
+    <button onclick="calcula()">Calcular</button>
+
+    <h3>Resultado:</h3>
+    <div id="saida"></div>
+
+    <script>
+        function calcula() {
+            // Captura e conversão para número
+            var geladeira = Number(document.getElementById("geladeira").value) || 0;
+            var ar = Number(document.getElementById("ar").value) || 0;
+            var tv = Number(document.getElementById("tv").value) || 0;
+            var kwh = Number(document.getElementById("kwh").value) || 0;
+
+            // Validação básica
+            if (kwh <= 0) {
+                document.getElementById("saida").innerHTML = "Informe um valor válido para o kWh.";
+                return;
+            }
+
+            var totalConsumo = geladeira + ar + tv;
+            var custo = totalConsumo * kwh;
+
+            var mensagem = "Consumo total: " + totalConsumo.toFixed(2) + " kWh<br>";
+            mensagem += "Gasto estimado: R$ " + custo.toFixed(2) + "<br>";
+
+            // Sugestão de economia
+            if (ar > 100) {
+                var economia = ar * 0.2 * kwh;
+                mensagem += "Você pode economizar reduzindo o uso do ar-condicionado em 20%.<br>";
+                mensagem += "Economia estimada: R$ " + economia.toFixed(2);
+            }
+
+            document.getElementById("saida").innerHTML = mensagem;
+        }
+    </script>
+</body>
+</html>
